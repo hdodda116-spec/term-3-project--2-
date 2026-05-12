@@ -1,17 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 :root {
-  --bg-primary: #111b21;
-  --bg-secondary: #202c33;
-  --bg-panel: #222e35;
-  --bg-hover: #2a3942;
-  --text-primary: #e9edef;
-  --text-secondary: #8696a0;
-  --accent: #00a884;
-  --accent-hover: #008f6f;
-  --msg-sent: #005c4b;
-  --msg-received: #202c33;
-  --border-color: rgba(134, 150, 160, 0.15);
+  /* Sleek Dark Theme Colors */
+  --bg-primary: #0f172a; /* Slate 900 */
+  --bg-secondary: #1e293b; /* Slate 800 */
+  --bg-panel: #334155; /* Slate 700 */
+  --bg-hover: #475569; /* Slate 600 */
   
-  --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --text-primary: #f8fafc; /* Slate 50 */
+  --text-secondary: #94a3b8; /* Slate 400 */
+  
+  --accent: #6366f1; /* Indigo 500 */
+  --accent-hover: #818cf8; /* Indigo 400 */
+  
+  --msg-sent: #6366f1; /* Indigo 500 */
+  --msg-received: #1e293b; /* Slate 800 */
+  
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -23,7 +33,7 @@
 body {
   margin: 0;
   font-family: var(--font-main);
-  background-color: #0b141a; /* Even darker outside the app */
+  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
   color: var(--text-primary);
   display: flex;
   justify-content: center;
@@ -36,16 +46,17 @@ body {
 #root {
   width: 100%;
   height: 100%;
-  max-width: 1600px;
+  max-width: 1400px;
   display: flex;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-lg);
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1200px) {
   #root {
-    height: 95vh;
-    border-radius: 8px;
+    height: 90vh;
+    border-radius: 16px;
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 }
 
@@ -58,11 +69,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Utility Animations */
@@ -72,5 +83,5 @@ body {
 }
 
 .fade-in {
-  animation: fadeIn 0.3s ease-out forwards;
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

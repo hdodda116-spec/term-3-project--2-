@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
-import { MdSend } from 'react-icons/md';
+import { MdSend, MdEmojiEmotions, MdAutoFixHigh } from 'react-icons/md';
+import EmojiPicker from 'emoji-picker-react';
 import './App.css';
 
 // Initialize socket connection outside component to avoid reconnects on render
@@ -16,7 +17,33 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState('');
   const [activeChat, setActiveChat] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [isFixing, setIsFixing] = useState(false);
   const messagesEndRef = useRef(null);
+  const emojiPickerRef = useRef(null);
+
+  const handleAIFix = async () => {
+    if (!currentMessage.trim()) return;
+    setIsFixing(true);
+    try {
+      const response = await fetch("http://localhost:5000/api/chat/fix", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: currentMessage }),
+      });
+      
+      const data = await response.json();
+      if (data.correctedText) {
+        setCurrentMessage(data.correctedText);
+      }
+    } catch (error) {
+      console.error("Failed to fix message:", error);
+    } finally {
+      setIsFixing(false);
+    }
+  };
 
   // Auto-scroll to bottom of messages
   const scrollToBottom = () => {
@@ -70,6 +97,20 @@ function App() {
     };
   }, []);
 
+  // Handle clicking outside emoji picker to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const handleJoin = (e) => {
     e.preventDefault();
     if (username.trim() && password.trim()) {
@@ -94,7 +135,12 @@ function App() {
       // Update local state immediately
       setMessages((prev) => [...prev, messageData]);
       setCurrentMessage('');
+      setShowEmojiPicker(false);
     }
+  };
+
+  const onEmojiClick = (emojiObject) => {
+    setCurrentMessage(prevInput => prevInput + emojiObject.emoji);
   };
 
   if (!isJoined) {
@@ -147,7 +193,7 @@ function App() {
               key={index} 
               className={`contact-item ${activeChat === user ? 'active' : ''}`}
               onClick={() => setActiveChat(user)}
-              style={{ backgroundColor: activeChat === user ? 'var(--bg-hover)' : '' }}
+              style={{ backgroundColor: activeChat === user ? 'var(--bg-secondary)' : '' }}
             >
               <div className="avatar">{user.charAt(0).toUpperCase()}</div>
               <div className="contact-info">
@@ -204,22 +250,53 @@ function App() {
               <div ref={messagesEndRef} />
             </div>
 
-            <form className="chat-input-container" onSubmit={handleSendMessage}>
-              <input
-                type="text"
-                className="chat-input"
-                placeholder="Type a message"
-                value={currentMessage}
-                onChange={(e) => setCurrentMessage(e.target.value)}
-              />
-              <button 
-                type="submit" 
-                className="btn-send"
-                disabled={!currentMessage.trim()}
+            <div className="chat-input-container">
+              <div ref={emojiPickerRef}>
+                <button 
+                  className="emoji-btn" 
+                  onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                  type="button"
+                >
+                  <MdEmojiEmotions size={28} />
+                </button>
+                {showEmojiPicker && (
+                  <div className="emoji-picker-wrapper">
+                    <EmojiPicker 
+                      onEmojiClick={onEmojiClick}
+                      theme="dark"
+                      searchDisabled={false}
+                      skinTonesDisabled={true}
+                    />
+                  </div>
+                )}
+              </div>
+              <button
+                className={`ai-fix-btn ${isFixing ? 'fixing' : ''}`}
+                onClick={handleAIFix}
+                type="button"
+                title="AI Correct & Rewrite"
+                disabled={isFixing || !currentMessage.trim()}
               >
-                <MdSend size={20} />
+                <MdAutoFixHigh size={24} />
               </button>
-            </form>
+              <form style={{ flex: 1, display: 'flex', gap: '1rem', alignItems: 'center' }} onSubmit={handleSendMessage}>
+                <input
+                  type="text"
+                  className="chat-input"
+                  placeholder="Type a message..."
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  disabled={isFixing}
+                />
+                <button 
+                  type="submit" 
+                  className="btn-send"
+                  disabled={!currentMessage.trim()}
+                >
+                  <MdSend size={22} />
+                </button>
+              </form>
+            </div>
           </>
         )}
       </div>
