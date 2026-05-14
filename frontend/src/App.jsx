@@ -145,8 +145,14 @@ function App() {
 
   if (!isJoined) {
     return (
-      <div className="login-screen fade-in">
-        <div className="login-card">
+      <>
+        <div className="bg-orbs">
+          <div className="orb orb-1"></div>
+          <div className="orb orb-2"></div>
+          <div className="orb orb-3"></div>
+        </div>
+        <div className="login-screen fade-in">
+          <div className="login-card">
           <h1>Welcome to Chat</h1>
           <p>Demo users: Alice, Bob, Charlie<br/>(Password: password123)</p>
           <form onSubmit={handleJoin}>
@@ -172,12 +178,19 @@ function App() {
           </form>
         </div>
       </div>
+      </>
     );
   }
 
   return (
-    <div className="app-container fade-in">
-      {/* Sidebar */}
+    <>
+      <div className="bg-orbs">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="orb orb-3"></div>
+      </div>
+      <div className="app-container fade-in">
+        {/* Sidebar */}
       <div className="sidebar">
         <div className="sidebar-header">
           <div className="user-profile">
@@ -301,6 +314,7 @@ function App() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

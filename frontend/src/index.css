@@ -36,10 +36,7 @@
 body {
   margin: 0;
   font-family: var(--font-main);
-  /* Dynamic animated background */
-  background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background: #020617; /* Solid deep background */
   color: var(--text-primary);
   display: flex;
   justify-content: center;
@@ -47,12 +44,63 @@ body {
   height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden; /* Prevent scrolling from orbs */
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Floating Animated Orbs Background */
+.bg-orbs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.5;
+  animation: floatOrb 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.orb-1 {
+  width: 50vw;
+  height: 50vw;
+  background: rgba(99, 102, 241, 0.6); /* Indigo */
+  top: -20%;
+  left: -10%;
+  animation-duration: 25s;
+}
+
+.orb-2 {
+  width: 60vw;
+  height: 60vw;
+  background: rgba(168, 85, 247, 0.5); /* Purple */
+  bottom: -30%;
+  right: -20%;
+  animation-duration: 32s;
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  width: 40vw;
+  height: 40vw;
+  background: rgba(236, 72, 153, 0.4); /* Pink */
+  top: 30%;
+  left: 40%;
+  animation-duration: 28s;
+  animation-delay: -12s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15vw, -10vh) scale(1.1); }
+  66% { transform: translate(-10vw, 15vh) scale(0.9); }
+  100% { transform: translate(5vw, 5vh) scale(1.05); }
 }
 
 #root {
