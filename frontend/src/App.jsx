@@ -193,7 +193,7 @@ function App() {
               key={index} 
               className={`contact-item ${activeChat === user ? 'active' : ''}`}
               onClick={() => setActiveChat(user)}
-              style={{ backgroundColor: activeChat === user ? 'var(--bg-secondary)' : '' }}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="avatar">{user.charAt(0).toUpperCase()}</div>
               <div className="contact-info">
