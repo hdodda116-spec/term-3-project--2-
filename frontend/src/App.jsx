@@ -5,8 +5,8 @@ import EmojiPicker from 'emoji-picker-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
 
-// Initialize socket connection outside component to avoid reconnects on render
-const socket = io('http://localhost:5000', { autoConnect: false });
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://term-3-project-2.onrender.com';
+const socket = io(BACKEND_URL, { autoConnect: false });
 
 function App() {
   const [username, setUsername] = useState('');
@@ -34,7 +34,7 @@ function App() {
     if (!currentMessage.trim()) return;
     setIsFixing(true);
     try {
-      const response = await fetch("http://localhost:5000/api/chat/fix", {
+      const response = await fetch(`${BACKEND_URL}/api/chat/fix`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: currentMessage }),
