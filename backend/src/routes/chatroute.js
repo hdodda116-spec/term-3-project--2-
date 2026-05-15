@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getMessages } = require("../controllers/chatController");
+const { getMessages } = require("../controllers/chatcontroller");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Initialize Gemini API

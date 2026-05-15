@@ -1,28 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Sleek Dark Theme Colors - Enhanced */
-  --bg-primary: #0f172a; /* Slate 900 */
-  --bg-secondary: #1e293b; /* Slate 800 */
-  --bg-panel: rgba(30, 41, 59, 0.7); /* Translucent Slate 800 */
-  --bg-hover: #475569; /* Slate 600 */
+  /* Neon Glassmorphism Theme */
+  --bg-primary: rgba(10, 10, 15, 0.85); /* Deep dark with transparency */
+  --bg-secondary: rgba(20, 20, 30, 0.6); /* Slightly lighter panel */
+  --bg-panel: rgba(25, 25, 35, 0.5); /* Glass panels */
+  --bg-hover: rgba(255, 255, 255, 0.1); 
   
-  --text-primary: #f8fafc; /* Slate 50 */
-  --text-secondary: #94a3b8; /* Slate 400 */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
   
-  --accent: #6366f1; /* Indigo 500 */
-  --accent-hover: #818cf8; /* Indigo 400 */
-  --accent-glow: rgba(99, 102, 241, 0.4);
+  --accent-cyan: #00ffff;
+  --accent-purple: #ff00ff;
+  --accent-gradient: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
   
-  --msg-sent: linear-gradient(135deg, #6366f1, #4f46e5); 
-  --msg-received: rgba(30, 41, 59, 0.85); 
+  --msg-sent: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2)); 
+  --msg-received: rgba(255, 255, 255, 0.05); 
   
-  --border-color: rgba(255, 255, 255, 0.08);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-  --shadow-md: 0 8px 16px rgba(0,0,0,0.2);
-  --shadow-lg: 0 16px 32px rgba(0,0,0,0.3);
-  --shadow-glow: 0 0 20px var(--accent-glow);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.15);
+  --neon-border-cyan: 1px solid rgba(0, 255, 255, 0.5);
+  --neon-border-purple: 1px solid rgba(255, 0, 255, 0.5);
+  
+  --shadow-sm: 0 4px 6px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 16px 32px rgba(0,0,0,0.5);
+  
+  --neon-glow-cyan: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+  --neon-glow-purple: 0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3);
   
   --font-main: 'Outfit', system-ui, -apple-system, sans-serif;
 }
